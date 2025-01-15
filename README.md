@@ -1,71 +1,72 @@
-# Getting Started with Create React App
+# Virtual Conference - Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## ✨ Descripción del Proyecto
+Virtual Conference es una plataforma de videoconferencias con chat en tiempo real y gestión de participantes. Permite a estudiantes y moderadores interactuar mediante mensajes, videollamadas y funcionalidades en tiempo real.
 
-## Available Scripts
+## 🛠️ Tecnologías Utilizadas
+- **React**: Biblioteca principal para la construcción de interfaces de usuario.
+- **Tailwind CSS**: Framework de diseño para estilizar la aplicación.
+- **Socket.io**: Comunicación en tiempo real.
+- **React Icons**: Iconografía.
+- **Prisma**: ORM para la gestión de la base de datos.
+- **Node.js & Express**: Backend para la gestión de sockets y API.
 
-In the project directory, you can run:
+## 📊 Características Principales
+- **Autenticación de Usuarios:** Inicio de sesión seguro con JWT.
+- **Roles de Usuario:** Diferenciación entre estudiantes y moderadores.
+- **Chat en Tiempo Real:** Mensajería instantánea con indicadores de escritura.
+- **Lista de Participantes:** Visualización de usuarios conectados/desconectados.
+- **Controles de Llamada:** Activar/desactivar micrófono, cámara y finalizar llamada.
+- **Diseño Responsivo:** Adaptado para dispositivos móviles y escritorio.
 
-### `npm start`
+## 📁 Estructura del Proyecto
+```
+src/
+├── components/
+│   ├── Chat.jsx           // Chat en tiempo real
+│   ├── VideoPlayer.jsx     // Reproductor de videollamadas
+│   ├── CallControls.jsx    // Controles de llamada (micrófono, cámara, finalizar)
+│   └── RegisterModal.jsx   // Modal para registrar usuarios
+│   └── Login.jsx         // Página de inicio de sesión
+├── hooks/
+│   └── useSocket.js       // Conexión a Socket.io
+├── pages/
+│   ├── Home.jsx          // Página principal de la conferencia
+├── services/
+│   ├── api.js            // Peticiones HTTP
+│   └── socket.js         // Configuración de socket
+├── utils/
+│   ├── auth.js          // Gestión de autenticación
+└── App.js               // Configuración de rutas principales
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🛠️ Instalación y Ejecución
+### 1. **Clonar el repositorio**
+```bash
+git clone https://github.com/abarros178/streaming-chat-frontend
+cd streaming-chat-frontend
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 2. **Instalar dependencias**
+```bash
+npm install
+```
 
-### `npm test`
+### 3. **Configurar variables de entorno**
+Crea un archivo `.env` y agrega:
+```
+REACT_APP_BACKEND_URL=http://localhost:4000
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 4. **Ejecutar el proyecto**
+```bash
+npm start
+```
+Esto abrirá la aplicación en `http://localhost:3000`.
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# streaming-chat-frontend
+## 💡 Buenas Prácticas Implementadas
+- **Componentes Reutilizables:** Diseño modular y mantenible.
+- **Hooks Personalizados:** `useSocket` para manejar sockets.
+- **Validaciones de Seguridad:** Manejo de tokens con JWT.
+- **Diseño Responsivo:** Adaptado a dispositivos móviles y de escritorio.
+- **Control de Errores:** Mensajes claros al usuario.

@@ -6,14 +6,14 @@ import { clearToken } from "../utils/auth";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false); // Modal de registro
-  const [showChat, setShowChat] = useState(false); // Modal de chat en móvil
+  const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [showChat, setShowChat] = useState(false); 
   const navigate = useNavigate();
 
   // Función para cerrar sesión
   const handleLogout = () => {
-    clearToken(); // 1️⃣ Eliminar el token
-    navigate("/"); // 2️⃣ Redirigir al inicio
+    clearToken(); 
+    navigate("/"); 
   };
 
   return (

@@ -20,14 +20,12 @@ const Chat = () => {
   const socket = useSocket(); // Usar el hook de socket
   const navigate = useNavigate();
 
-   // ✅ Corregido: Función definida antes del useEffect
    const handleSessionExpired = useCallback(() => {
     alert("⏳ Tu sesión ha expirado. Por favor, inicia sesión de nuevo.");
     clearToken();
     navigate("/");
   }, [navigate]);
 
-  // Cargar mensajes al iniciar
   useEffect(() => {
     const loadMessages = async () => {
       const token = getToken();
@@ -42,13 +40,13 @@ const Chat = () => {
     if (socket) {
 
       socket.emit("chat:requestParticipants");
-      // 📥 Recibir la lista actualizada de participantes
+      //  Recibir la lista actualizada de participantes
       socket.on("chat:updateParticipants", (participants) => {
         console.log("📋 Participantes actualizados:", participants);
         setParticipants(participants);
       });
   
-      // 📥 Escuchar mensajes nuevos
+      //  Escuchar mensajes nuevos
       socket.on("chat:message", (newMessage) => {
         setMessages((prevMessages) => [...prevMessages, newMessage]);
       });
@@ -63,7 +61,7 @@ const Chat = () => {
         setTypingUser("");
       });
   
-      // 🛑 Escuchar errores
+      //  Escuchar errores
       socket.on("chat:error", (err) => {
         console.error("❌ Error recibido:", err.error);
         if (err.error.includes("expirado") || err.error.includes("inicia sesión")) {
@@ -170,7 +168,7 @@ const Chat = () => {
       formattedDate = `Ayer a las ${msgDate.toLocaleTimeString(
         "es-ES",
         optionsTime
-      )}`; // Ayer + hora
+      )}`;
     } else {
       formattedDate = msgDate.toLocaleString("es-ES", optionsFullDate); // Fecha completa
     }

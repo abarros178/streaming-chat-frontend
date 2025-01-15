@@ -16,10 +16,10 @@ const Login = () => {
     try {
       const { data } = await loginUser({ username, password });
 
-      saveToken(data.token); // Guardar token
-      connectSocket();       // Conectar el socket
+      saveToken(data.token); 
+      connectSocket();       
 
-      navigate("/home");     // Redirigir al home
+      navigate("/home"); 
     } catch {
       alert("Credenciales incorrectas");
     } finally {

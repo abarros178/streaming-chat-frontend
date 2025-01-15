@@ -14,14 +14,12 @@ const RegisterModal = ({ isOpen, onClose }) => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  // 👉 Función para limpiar el formulario
   const resetForm = () => {
     setFormData(initialFormData);
     setError("");
     setSuccess("");
   };
 
-  // 🚪 Cerrar el modal y limpiar datos
   const handleClose = () => {
     resetForm();
     onClose();

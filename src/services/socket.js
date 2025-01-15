@@ -16,11 +16,11 @@ export const connectSocket = () => {
     socket = io("http://localhost:4000", {
       auth: { token },
       transports: ["websocket"],
-      reconnection: true,               // Habilita reconexión automática
-      reconnectionAttempts: Infinity,   // Intenta reconectar indefinidamente
-      reconnectionDelay: 1000,         // 1 segundo entre intentos
-      reconnectionDelayMax: 5000,      // Máximo 5 segundos de espera
-      timeout: 20000,                  // Timeout de conexión
+      reconnection: true,              
+      reconnectionAttempts: Infinity,   
+      reconnectionDelay: 1000,        
+      reconnectionDelayMax: 5000,      
+      timeout: 20000,                 
     });
 
     // ✅ Conexión exitosa

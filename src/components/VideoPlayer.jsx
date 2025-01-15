@@ -19,8 +19,8 @@ const participants = [
   { id: 4, name: "Ana Torres", isMuted: true, videoUrl: "https://www.youtube.com/watch?v=ajkv_tjRKz4" },
   { id: 5, name: "Luis Gómez", isMuted: false, videoUrl: "https://www.youtube.com/watch?v=56ImIT_x4Vk" },
   { id: 6, name: "Camilo Rivera", isMuted: false, videoUrl: "https://www.youtube.com/watch?v=jT1V7agy9Hs" },
-  { id: 7, name: "Camilo Rivera", isMuted: true, videoUrl: "https://www.youtube.com/watch?v=o3EvKwJoXeU" },
-  { id: 8, name: "Camilo Rivera", isMuted: true, videoUrl: "https://www.youtube.com/watch?v=eZN8qz8jSjI" },
+  { id: 7, name: "Natalia Perez", isMuted: true, videoUrl: "https://www.youtube.com/watch?v=o3EvKwJoXeU" },
+  { id: 8, name: "Edenilson Ramirez", isMuted: true, videoUrl: "https://www.youtube.com/watch?v=eZN8qz8jSjI" },
 
 ];
 

@@ -29,12 +29,10 @@ export const useSocket = () => {
         timeout: 20000,
       });
 
-      // ✅ Conexión exitosa
       socket.on("connect", () => {
         console.log("✅ Conectado al socket:", socket.id);
       });
 
-      // ❌ Error de conexión
       socket.on("connect_error", (err) => {
         console.error("❌ Error de conexión:", err.message);
 
@@ -46,14 +44,11 @@ export const useSocket = () => {
           alert(`⚠️ Error de conexión: ${err.message}`);
         }
       });
-
-      // 🔌 Desconexión
       socket.on("disconnect", (reason) => {
         console.warn(`🔌 Desconectado: ${reason}`);
       });
     }
 
-    // Cleanup cuando el componente se desmonte
     return () => {
       if (socket) {
         socket.disconnect();

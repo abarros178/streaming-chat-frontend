@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Scrollbar oscuro */
+::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #1f2937; /* Gris oscuro */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #4b5563; /* Gris más claro */
+    border-radius: 10px;
+    border: 2px solid #1f2937;
+  }
+  
+  /* Para navegadores que soportan scrollbar-color */
+  .scrollbar-custom {
+    scrollbar-color: #4b5563 #1f2937;
+    scrollbar-width: thin;
+  }
+  

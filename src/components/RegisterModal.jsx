@@ -24,7 +24,7 @@ const RegisterModal = ({ isOpen, onClose }) => {
   // 🚪 Cerrar el modal y limpiar datos
   const handleClose = () => {
     resetForm();
-    onClose(); // Llama a la función de cierre original
+    onClose();
   };
 
   const handleChange = (e) => {
@@ -37,11 +37,11 @@ const RegisterModal = ({ isOpen, onClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await registerUser(formData);
+      await registerUser(formData);
       setSuccess("✅ Usuario registrado exitosamente.");
       setError("");
       setTimeout(() => {
-        handleClose();  // Cierra el modal y limpia el formulario
+        handleClose();
       }, 2000);
     } catch (err) {
       setError(err.response?.data?.error || "❌ Error al registrar.");
@@ -49,23 +49,28 @@ const RegisterModal = ({ isOpen, onClose }) => {
   };
 
   if (!isOpen) return null;
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50">
-      <div className="bg-gray-800 p-6 rounded-lg shadow-lg w-96">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold text-white">Registrar Usuario</h2>
+      <div className="bg-gray-800 p-8 rounded-3xl shadow-2xl w-96">
+        {/* Encabezado del Modal */}
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl font-bold text-white">Registrar Usuario</h2>
           <button
-            onClick={onClose}
-            className="text-gray-400 hover:text-white"
+            onClick={handleClose}
+            className="text-gray-400 hover:text-white bg-gray-700 p-2 rounded-full transition-transform transform hover:scale-110"
           >
-            <FiX size={24} />
+            <FiX size={20} />
           </button>
         </div>
 
-        {error && <p className="text-red-500 mb-2">{error}</p>}
-        {success && <p className="text-green-500 mb-2">{success}</p>}
+        {/* Mensajes de error y éxito */}
+        {error && <p className="text-red-500 mb-3">{error}</p>}
+        {success && <p className="text-green-500 mb-3">{success}</p>}
 
-        <form onSubmit={handleSubmit} className="space-y-3">
+        {/* Formulario */}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Campo Nombre */}
           <input
             type="text"
             name="name"
@@ -73,8 +78,10 @@ const RegisterModal = ({ isOpen, onClose }) => {
             value={formData.name}
             onChange={handleChange}
             required
-            className="w-full p-2 border border-gray-700 rounded-md bg-gray-700 text-white placeholder-gray-400"
+            className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-full text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
+
+          {/* Campo Usuario */}
           <input
             type="text"
             name="username"
@@ -82,8 +89,10 @@ const RegisterModal = ({ isOpen, onClose }) => {
             value={formData.username}
             onChange={handleChange}
             required
-            className="w-full p-2 border border-gray-700 rounded-md bg-gray-700 text-white placeholder-gray-400"
+            className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-full text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
+
+          {/* Campo Contraseña */}
           <input
             type="password"
             name="password"
@@ -91,21 +100,24 @@ const RegisterModal = ({ isOpen, onClose }) => {
             value={formData.password}
             onChange={handleChange}
             required
-            className="w-full p-2 border border-gray-700 rounded-md bg-gray-700 text-white placeholder-gray-400"
+            className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-full text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
+
+          {/* Selección de Rol */}
           <select
             name="role"
             value={formData.role}
             onChange={handleChange}
-            className="w-full p-2 border border-gray-700 rounded-md bg-gray-700 text-white"
+            className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-full text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="STUDENT">Estudiante</option>
             <option value="MODERATOR">Moderador</option>
           </select>
 
+          {/* Botón de Registrar */}
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md transition duration-300"
+            className="w-full py-3 text-lg font-semibold rounded-full bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white shadow-md transition-transform transform hover:scale-105"
           >
             Registrar
           </button>

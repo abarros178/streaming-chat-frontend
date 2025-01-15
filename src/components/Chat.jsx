@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef,useCallback } from "react";
 import { fetchMessages } from "../services/api";
 import { getToken, getCurrentUser, clearToken } from "../utils/auth";
 import { FiSend } from "react-icons/fi";
@@ -20,6 +20,13 @@ const Chat = () => {
   const socket = useSocket(); // Usar el hook de socket
   const navigate = useNavigate();
 
+   // ✅ Corregido: Función definida antes del useEffect
+   const handleSessionExpired = useCallback(() => {
+    alert("⏳ Tu sesión ha expirado. Por favor, inicia sesión de nuevo.");
+    clearToken();
+    navigate("/");
+  }, [navigate]);
+
   // Cargar mensajes al iniciar
   useEffect(() => {
     const loadMessages = async () => {
@@ -29,36 +36,37 @@ const Chat = () => {
         setMessages(data);
       }
     };
-
+  
     loadMessages();
-
+  
     if (socket) {
-      socket.on("chat:updateParticipants", (users) => {
-        setParticipants(users);
-      });
 
+      socket.emit("chat:requestParticipants");
+      // 📥 Recibir la lista actualizada de participantes
+      socket.on("chat:updateParticipants", (participants) => {
+        console.log("📋 Participantes actualizados:", participants);
+        setParticipants(participants);
+      });
+  
       // 📥 Escuchar mensajes nuevos
       socket.on("chat:message", (newMessage) => {
         setMessages((prevMessages) => [...prevMessages, newMessage]);
       });
-
+  
       socket.on("chat:userTyping", ({ user }) => {
         if (user !== currentUser?.name) {
           setTypingUser(user);
         }
       });
-
+  
       socket.on("chat:userStopTyping", () => {
         setTypingUser("");
       });
-
+  
       // 🛑 Escuchar errores
       socket.on("chat:error", (err) => {
         console.error("❌ Error recibido:", err.error);
-        if (
-          err.error.includes("expirado") ||
-          err.error.includes("inicia sesión")
-        ) {
+        if (err.error.includes("expirado") || err.error.includes("inicia sesión")) {
           handleSessionExpired();
         } else {
           setError(err.error);
@@ -66,7 +74,7 @@ const Chat = () => {
         }
       });
     }
-
+  
     return () => {
       socket?.off("chat:message");
       socket?.off("chat:userTyping");
@@ -74,7 +82,8 @@ const Chat = () => {
       socket?.off("chat:updateParticipants");
       socket?.off("chat:error");
     };
-  }, [socket]);
+  }, [socket, currentUser?.name, handleSessionExpired]);
+  
 
   useEffect(() => {
     if (activeTab === "chat") {
@@ -129,12 +138,6 @@ const Chat = () => {
         socket.emit("chat:stopTyping");
       }, 2000);
     }
-  };
-
-  const handleSessionExpired = () => {
-    alert("⏳ Tu sesión ha expirado. Por favor, inicia sesión de nuevo.");
-    clearToken(); // Eliminar el token del almacenamiento local
-    navigate("/"); // Redirigir al inicio de sesión
   };
 
   const scrollToBottom = () => {
@@ -229,18 +232,18 @@ const Chat = () => {
                       max-w-[90%] sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl
                       p-3 rounded-2xl shadow-lg  ${
                         isModerator
-                          ? "bg-yellow-500 text-black border-l-4 border-yellow-700"
+                          ? "bg-[#CCD0CF] text-black border-l-4 border-gray-500"
                           : isCurrentUser
-                          ? "bg-blue-600 text-white rounded-br-none"
-                          : "bg-gray-700 text-gray-100 rounded-bl-none"
+                          ? "bg-[#7DA0CA] text-white rounded-br-none"
+                          : "bg-gray-600 text-gray-100 rounded-bl-none"
                       }`}
                   >
-                    <div className="flex items-center text-xs text-gray-300 mb-1">
+                    <div className="flex items-center text-xs text-black mb-1">
                       {!isCurrentUser && msg.user?.name && (
                         <span className="mr-2 font-semibold flex items-center">
                           {msg.user.name}
                           {isModerator && (
-                            <span className="ml-2 flex items-center bg-yellow-600 text-black px-2 py-0.5 rounded-full text-xs font-semibold">
+                            <span className="ml-2 flex items-center bg-gray-500 text-black px-2 py-0.5 rounded-full text-xs font-semibold">
                               <BsShieldLockFill className="mr-1" size={12} />
                               Moderador
                             </span>
@@ -288,7 +291,7 @@ const Chat = () => {
           />
           <button
             onClick={handleSendMessage}
-            className="ml-2 p-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full focus:outline-none"
+            className="ml-2 p-2 bg-[#2E4156] hover:bg-[#3a536d] text-white rounded-full focus:outline-none"
           >
             <FiSend size={18} />
           </button>
